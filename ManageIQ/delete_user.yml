@@ -5,7 +5,7 @@
 - hosts: localhost
 
   vars:
-    user_url: "{{ manageiq.api_url }}/api/users?expand=resources&attributes=name,href,id&filter[]=name='fisherprice'"
+    user_url: "http://cloudforms-0.cloudforms.openshift-cfme.svc.cluster.local/api/users?expand=resources&attributes=name,href,id&filter[]=name='fisherprice'"
 
   tasks:
     - debug: var=manageiq.api_url
@@ -22,6 +22,7 @@
            Content-Type: "application/json"
         body_format: json
         return_content: yes
+        status_code: 200
       register: token_output
 
     - set_fact: user_href="{{ token_output.json.resources[0].href }}"
@@ -39,6 +40,7 @@
         body: 
           action: 'delete'
         return_content: yes
+        status_code: 200
       register: token_output
 
     - debug: var=token_output.json
