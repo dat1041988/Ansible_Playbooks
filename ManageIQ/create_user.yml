@@ -20,6 +20,7 @@
            Content-Type: "application/json"
         body_format: json
         return_content: yes
+        status_code: 200
       register: token_output
 
     - set_fact: group_id="{{ token_output.json.resources[0].id }}"
@@ -41,6 +42,7 @@
           group: 
              id: '{{ group_id }}'
         return_content: yes
+        status_code: 200
       register: token_output
 
     - debug: var=token_output.json
